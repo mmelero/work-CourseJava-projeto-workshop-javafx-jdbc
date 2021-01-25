@@ -52,7 +52,8 @@ public class DepartmentListController implements Initializable {
 	//Metodo para tratamento do botão
 	public void onBtNewAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
-		createDailogForm("/gui/DepartmentForm.fxml", parentStage);
+		Department obj = new Department();
+		createDailogForm(obj, "/gui/DepartmentForm.fxml", parentStage);
 	}
 	
 	//Injetar dependencia do DepartmentService / inversão de controle;
@@ -97,11 +98,17 @@ public class DepartmentListController implements Initializable {
 		tableViewDepartment.setItems(obsList);
 	}
 
-	private void createDailogForm(String abusolteName,Stage parentStage) {
+	private void createDailogForm(Department obj, String abusolteName,Stage parentStage) {
 		
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(abusolteName));
 			Pane pane = loader.load();
+			
+			DepartmentFormController controller = loader.getController();
+			controller.setDepartment(obj);
+			controller.updateFormData();
+			
+			
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Enter Departmente Data");
 			dialogStage.setScene(new Scene(pane));
