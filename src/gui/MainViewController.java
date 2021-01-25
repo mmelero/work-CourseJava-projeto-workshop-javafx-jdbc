@@ -3,6 +3,7 @@ package gui;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
 import application.Main;
 import gui.util.Alerts;
@@ -15,7 +16,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
-import model.entities.Department;
 import model.services.DepartmentService;
 
 public class MainViewController implements Initializable{
@@ -35,16 +35,16 @@ public class MainViewController implements Initializable{
 	}
 	
 	@FXML
-	public void onMenuItemDepartment() {
-		loadView2("/gui/DepartmentList.fxml");
+	public void onMenuItemDepartmentAction() {
+		loadView("/gui/DepartmentList.fxml", ( DepartmentListController controller) -> {
+			controller.setDepartmentService(new DepartmentService());
+			controller.updateTableView();
+		});
 	}
-//	public void onMenuItemDepartment() {
-//		loadView("/gui/DepartmentList.fxml");
-//	}
 
 	@FXML
-	public void onMenuItemAbout() {
-		loadView("/gui/About.fxml");
+	public void onMenuItemAboutAction() {
+		loadView("/gui/About.fxml", x -> {});
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class MainViewController implements Initializable{
 	}
 	
 	//Metodo criado para carregar a view About
-	private void loadView(String absoluteName) {
+	private synchronized <T> void  loadView(String absoluteName, Consumer<T> initializingActionAction) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			VBox newVBox = loader.load();
@@ -79,11 +79,11 @@ public class MainViewController implements Initializable{
 			mainVBOx.getChildren().add(mainMenu);
 			
 			//Adicionar os itens do menu About
-			mainVBOx.getChildren().addAll(newVBox);
+			mainVBOx.getChildren().addAll(newVBox.getChildren());
 			
-			
-			
-			
+			T controller = loader.getController();
+			initializingActionAction.accept(controller);
+ 
 		}
 		catch(IOException e) {
 		
@@ -91,42 +91,5 @@ public class MainViewController implements Initializable{
 		}
 	}
 	
-	private void loadView2(String absoluteName) {
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
-			VBox newVBox = loader.load();
-			
-			// pegar a referencia do palco principal
-			Scene mainScene = Main.getMainScen();
-			
-			//variavel criada para guardar a referencia do Vbox da janela princial;
-			//Objetivo: Pegar o primeiro elemento da view
-			//Efetuar os casting ScroollPane e VBox e pegar o conteudo da view
-			VBox mainVBOx = (VBox) ((ScrollPane)mainScene.getRoot()).getContent();
-			
-			//limpar o conteudo do menu principal do menuBar e incluir o conteudo do menuBar About
-			
-			// Guardar referecia do menuBar na posicao "zero" da janela principal
-			Node mainMenu = mainVBOx.getChildren().get(0);
-			
-			//Limpar todos os elementos do menuBar
-			mainVBOx.getChildren().clear();
-			
-			//Adicionar MenuBar vazio
-			mainVBOx.getChildren().add(mainMenu);
-			
-			//Adicionar os itens do menu About
-			mainVBOx.getChildren().addAll(newVBox);
-			
-			//processo manual de injetar dados do controle e chamar o metodo controller.updateTableView()
-			DepartmentListController controller = loader.getController();
-			controller.setDepartmentService(new DepartmentService());
-			controller.updateTableView();
-		}
-		catch(IOException e) {
-		
-			Alerts.showAlert("IO Exeception", "Error Loading View", e.getMessage(), AlertType.ERROR);
-		}
-	}	
-
+	
 }
