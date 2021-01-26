@@ -22,6 +22,7 @@ import javafx.scene.control.TextField;
 import model.entities.Department;
 import model.exceptions.ValidationException;
 import model.services.DepartmentService;
+//import sun.security.jca.GetInstance;
 
 public class DepartmentFormController implements Initializable {
 	
@@ -90,7 +91,7 @@ public class DepartmentFormController implements Initializable {
 		Department obj = new Department();
 		ValidationException exception = new ValidationException("Validation error");
 		
-		obj.setId(Utils.tryparseToInt(txtId.getId()));
+		obj.setId(Utils.tryparseToInt(txtId.getText()));
 		
 		if(txtName.getText() == null || txtName.getText().trim().equals("")) {
 			exception.addError("name", "Field can´t be empty");
@@ -124,7 +125,12 @@ public class DepartmentFormController implements Initializable {
 		if(entity == null) {
 			throw new IllegalStateException("Entity was null");
 		}
-		txtId.setText(String.valueOf(entity.getId()));
+		
+		
+		txtId.setText(entity.getId() == null ? " " :String.valueOf(entity.getId()) );
+		//txtId.setText(String.valueOf(entity.getId()));
+		//System.out.println("Id "+entity.getId() );
+
 		txtName.setText(entity.getName());
 	}
 	
