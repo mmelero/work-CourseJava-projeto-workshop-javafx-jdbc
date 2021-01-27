@@ -1,6 +1,7 @@
 package gui;
 
 import java.net.URL;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -45,6 +46,15 @@ public class SellertListController implements Initializable, DataChangeListener 
 	private TableColumn<Seller, String> TableColumnName;
 	
 	@FXML
+	private TableColumn<Seller, String> TableColumnEmail;
+	
+	@FXML
+	private TableColumn<Seller, Date> TableColumnBirthDate;
+	
+	@FXML
+	private TableColumn<Seller, Double> TableColumnBaseSalary;
+	
+	@FXML
 	private TableColumn<Seller, Seller> tableColumnEDIT;
 	
 	@FXML
@@ -84,6 +94,11 @@ public class SellertListController implements Initializable, DataChangeListener 
 		
 		tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
 		TableColumnName.setCellValueFactory(new PropertyValueFactory<>("name"));
+		TableColumnEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+		TableColumnBirthDate.setCellValueFactory(new PropertyValueFactory<>("birthDate"));
+		Utils.formatTableColumnDate(TableColumnBirthDate, "dd/MM/yyyy");
+		TableColumnBaseSalary.setCellValueFactory(new PropertyValueFactory<>("baseSalary"));
+		Utils.formatTableColumnDouble(TableColumnBaseSalary, 2);
 		
 		//Macete para que a tabela (tableView) acompanhe o tamanho da tela;
 		//Objetivo: pegar a referencia da janela e dimenciona-la conforme elementos da tabela

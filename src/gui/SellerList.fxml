@@ -28,6 +28,9 @@
         <columns>
           <TableColumn fx:id="tableColumnId" editable="false" prefWidth="75.0" text="Id" />
           <TableColumn fx:id="TableColumnName" prefWidth="75.0" text="Name" />
+            <TableColumn fx:id="TableColumnEmail" prefWidth="75.0" text="Email" />
+            <TableColumn fx:id="TableColumnBirthDate" prefWidth="75.0" text="BirthDate" />
+            <TableColumn fx:id="TableColumnBaseSalary" prefWidth="75.0" text="BaseSalary" />
             <TableColumn fx:id="tableColumnEDIT" editable="false" prefWidth="75.0" sortable="false" />
             <TableColumn fx:id="tableColumnREMOVE" prefWidth="75.0" />
         </columns>
