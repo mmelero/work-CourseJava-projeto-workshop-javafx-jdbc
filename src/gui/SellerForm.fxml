@@ -40,13 +40,13 @@
             </HBox>
             <TextField fx:id="txtId" editable="false" GridPane.columnIndex="1" />
             <TextField fx:id="txtName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="txtEmail" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <DatePicker fx:id="dpBirthDate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="txtbaseSalary" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Label text="E-mail" GridPane.rowIndex="2" />
             <Label text="BirthDate" GridPane.rowIndex="3" />
             <Label text="Base Salary" GridPane.rowIndex="4" />
             <Label text="Department" GridPane.rowIndex="5" />
-            <TextField fx:id="txtEmail" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="txtbaseSalary" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <DatePicker fx:id="dpBirthDate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Label fx:id="labelErrorEmail" textFill="#da0d0d" GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <Label fx:id="labelErrorBirthDate" textFill="#cd1010" GridPane.columnIndex="2" GridPane.rowIndex="3" />
             <Label fx:id="labelErrorBaseSalary" textFill="#da0f0f" GridPane.columnIndex="2" GridPane.rowIndex="4" />
